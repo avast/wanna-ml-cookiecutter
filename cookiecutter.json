@@ -1,0 +1,21 @@
+{
+    "project_name": "project_name",
+    "__project_slug": "{{cookiecutter.project_name|lower|replace('-', '_')|replace(' ', '_')}}",
+    "__wanna_project_slug": "wanna_{{cookiecutter.__project_slug}}",
+    "__wanna_project_name": "wanna-{{cookiecutter.project_name|lower|replace('_', '-')|replace(' ', '-')}}",
+    "project_owner_fullname": "Joao Da Silva",
+    "project_owner_email": "joao.dasilvacunha@gendigial.com",
+    "project_version": "0.0.0",
+    "project_description": "Link to project page on Confluence",
+    "gcp_project_id": "your-gcp-project-id",
+    "gcp_project_bundle_name": "wanna",
+    "gcp_region": "europe-west1",
+    "gcp_network_name": "{{cookiecutter.gcp_region}}-net",
+    "gcp_subnetwork_name": "{{cookiecutter.gcp_region}}-subnet",
+    "gcp_service_account_name": "sa-{{cookiecutter.__wanna_project_name}}",
+    "use_jupyter_notebooks": true,
+    "__prompts__": {
+        "project_name": "Project name without wanna- prefix",
+        "gcp_project_bundle_name": "GCP Project bundle without tenant name"
+    }
+}

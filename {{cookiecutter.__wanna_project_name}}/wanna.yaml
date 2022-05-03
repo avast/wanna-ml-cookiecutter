@@ -1,0 +1,76 @@
+wanna_project:
+  name: {{ cookiecutter.__wanna_project_name }}
+  version: {{ cookiecutter.project_version }}
+  authors: 
+    - {{ cookiecutter.project_owner_email }}
+
+gcp_profiles:
+  - profile_name: {{ cookiecutter.gcp_project_bundle_name }}-test
+    project_id: {{ cookiecutter.gcp_project_id }}
+    zone: {{ cookiecutter.gcp_region }}-b
+    bucket: {{ cookiecutter.__wanna_project_name }}-test
+    labels:
+    network: projects/{{ cookiecutter.gcp_project_id }}/global/networks/{{ cookiecutter.gcp_network_name }}
+    subnet: projects/{{ cookiecutter.gcp_project_id }}/regions/{{ cookiecutter.gcp_region }}/subnetworks/{{ cookiecutter.gcp_subnetwork_name }}
+    service_account: {{ cookiecutter.gcp_service_account_name }}@{{ cookiecutter.gcp_project_id }}.iam.gserviceaccount.com
+    docker_repository: {{ cookiecutter.gcp_project_bundle_name }}-test
+
+notification_channels:
+  - type: pubsub
+    name: {{ cookiecutter.__wanna_project_name }}-alert-ms-teams-channel
+    topics:
+      - ms-teams-{{ cookiecutter.__wanna_project_name }}-topic
+
+docker:
+  cloud_build: true
+  cloud_build_workerpool: your-vpc-pool
+  cloud_build_workerpool_location: europe-west1
+  cloud_build_timeout: 3600 # seconds
+  images:
+    # build a package based on current project
+    - build_type: local_build_image
+      name: data
+      context_dir: .
+      dockerfile: Dockerfile
+
+    # use an already existing image
+    - build_type: provided_image
+      name: serve
+      image_url: europe-docker.pkg.dev/vertex-ai/prediction/xgboost-cpu.2-0:latest      
+
+notebooks:
+  - name: {{ cookiecutter.__wanna_project_name }}
+    collaborative: true
+    machine_type: n1-standard-8
+    labels:
+      app: {{ cookiecutter.__wanna_project_name }}
+    environment:
+      docker_image_ref: data
+    boot_disk:
+      disk_type: pd_ssd
+      size_gb: 100
+    data_disk:
+      disk_type: pd_ssd
+      size_gb: 200
+    # gpu:
+      # accelerator_type: NVIDIA_TESLA_T4
+      # count: 1
+
+pipelines:
+  - name: {{ cookiecutter.__wanna_project_name }}
+    # todo: if you want to run the pipeline periodically, uncomment the following block, check the schedule using https://crontab.guru/#0_4_*_*_*
+    # schedule:
+    #  cron: 0 4 * * *
+    pipeline_function: "{{ cookiecutter.__wanna_project_slug }}.pipeline.{{ cookiecutter.__wanna_project_slug }}_pipeline"
+    pipeline_params: params/params.test.yaml
+    docker_image_ref:
+      - data
+
+jobs:
+  - name: {{ cookiecutter.__wanna_project_name }}
+    worker:
+      container:
+        docker_image_ref: data
+        command: []
+      args: []
+      machine_type: "n1-standard-8"

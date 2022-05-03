@@ -1,0 +1,4 @@
+# Uncomment for configuration of docker build called from wanna
+#network: host
+#add_hosts:
+#  some_host.example.com: 10.20.30.40

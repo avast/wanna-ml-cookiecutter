@@ -1,0 +1,4 @@
+{%- if cookiecutter.use_jupyter_notebooks -%}
+train_notebook_input_path: /app/notebooks/train.ipynb
+train_notebook_output_path: /app/notebooks/train_output.ipynb
+{%- endif %}

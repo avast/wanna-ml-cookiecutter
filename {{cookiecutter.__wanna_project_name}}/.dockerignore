@@ -1,0 +1,49 @@
+# docker-py tars the whole build directory and sends it to the docker-machine
+# excluding large folders and files unrelated to docker build can save a lot of time on each build
+
+# wanna project
+local
+params
+README.md
+src/{{cookiecutter.__wanna_project_slug}}/pipeline.py
+wanna.yaml
+build
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+#VS code
+.vscode
+
+# Dev & Python folders
+.dockerignore
+.git
+.gitignore
+.idea
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.mypy_cache
+.pytest_cache
+.hypothesis
+.ruff_cache
+htmlcov

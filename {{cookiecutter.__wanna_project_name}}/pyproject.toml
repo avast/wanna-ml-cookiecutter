@@ -1,0 +1,81 @@
+[tool.poetry]
+authors = ["{{cookiecutter.project_owner_fullname}} <{{cookiecutter.project_owner_email}}>"]
+description = "{{cookiecutter.project_description}}"
+name = "{{cookiecutter.__wanna_project_slug}}"
+packages = [
+  {include = "{{cookiecutter.__wanna_project_slug}}", from = "src"},
+]
+include = ["*.conf", "py.typed", "*.yaml"]
+version = "0.0.1"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+google-cloud-pipeline-components = "^2.5.0"
+google-cloud-aiplatform = "^1.35.0"
+kfp = "^2.7.0"
+{%- if cookiecutter.use_jupyter_notebooks %}
+papermill = "^2.5.0"
+jupyter = "^1.0.0"
+ipykernel = "^6.28.0"
+{%- endif %}
+pandas = "^2.1.4"
+scikit-learn = "1.3.2"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.10.0"
+poethepoet = "^0.26.1"
+pytest = "^8.2.2"
+pytest-asyncio = "^0.23.7"
+pytest-cov = "^5.0.0"
+pytest-mypy = "^0.10.3"
+pytest-ruff = "^0.3.2"
+teamcity-messages = "^1.32"
+types-google-cloud-ndb = "^2.2.0.1"
+types-protobuf = "^5.26.0"
+wanna-ml = "^0.3.7"
+
+[tool.pytest.ini_options]
+addopts = """
+    --verbose
+    --ruff
+    --ruff-format
+    --cov={{cookiecutter.__wanna_project_slug}} --cov-report html
+    --mypy
+    """
+asyncio_mode = "auto"
+
+[tool.poe.tasks]
+_ruff_sort_imports = "ruff check --select I --fix ."
+_ruff_format = "ruff format ."
+format-code = ["_ruff_sort_imports", "_ruff_format"]
+
+[tool.ruff]
+line-length = 99
+output-format = "full"
+force-exclude = true
+extend-exclude = ["**pb2.py", "**pb2.pyi"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "PERF", "ARG"]
+ignore = [
+    "E1", # handled by formatter
+    "E4", # handled by formatter
+    "E5", # handled by formatter
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 99
+
+[tool.mypy]
+strict = false
+mypy_path = "src"
+namespace_packages = true
+explicit_package_bases = true
+warn_unused_ignores = true
+ignore_missing_imports = true
+disallow_untyped_calls = false
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
