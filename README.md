@@ -39,7 +39,7 @@ project_description [Link to WANNA project page on CML]:
 project_slug [project_name]: 
 gcp_project_id [us-burger-gcp-poc]: 
 gcp_service_account [wanna-ml-testing@us-burger-gcp-poc.iam.gserviceaccount.com]: 
-gcp_bucket [wanna_ml]: 
+gcp_bucket [wanna-ml-west1]: 
 ```
 
 # cd into your project_slug
