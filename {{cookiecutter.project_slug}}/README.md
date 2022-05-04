@@ -1,4 +1,4 @@
-# Wanna-ml project {{ cookiecutter.project_slug }}
+# WANNA ML project {{ cookiecutter.project_slug }}
 
 # Setup
 
