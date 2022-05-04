@@ -16,7 +16,7 @@ extra-index-url = https://artifactory.ida.avast.com/artifactory/api/pypi/pypi-lo
 # Install 
 
 ```
-pip install cookiecutter wanna
+pip install wanna
 ```
 
 # Launch to cutter
@@ -37,9 +37,9 @@ project_owner_email [you@avast.com]:
 project_version [0.0.0]: 
 project_description [Link to WANNA project page on CML]: 
 project_slug [project_name]: 
-gcp_project_id [us-burger-gcp-poc]: 
-gcp_service_account [wanna-ml-testing@us-burger-gcp-poc.iam.gserviceaccount.com]: 
-gcp_bucket [wanna-ml-west1]: 
+gcp_project_id []: 
+gcp_service_account []: 
+gcp_bucket []: 
 ```
 
 # cd into your project_slug
