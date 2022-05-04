@@ -35,7 +35,7 @@ project_name [project_name]:
 project_owner_fullname [project owner]: 
 project_owner_email [you@avast.com]: 
 project_version [0.0.0]: 
-project_description [Link to MLOps project page on CML]: 
+project_description [Link to WANNA project page on CML]: 
 project_slug [project_name]: 
 gcp_project_id [us-burger-gcp-poc]: 
 gcp_service_account [wanna-ml-testing@us-burger-gcp-poc.iam.gserviceaccount.com]: 
