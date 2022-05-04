@@ -1,0 +1,74 @@
+[tool.poetry]
+authors = ["{{cookiecutter.project_owner_fullname}}", "{{cookiecutter.project_owner_email}}"]
+description = "{{cookiecutter.project_description}}"
+name = "{{cookiecutter.project_slug}}"
+packages = [
+  {include = "{{cookiecutter.project_slug}}", from = "pipeline"},
+]
+version = "{{cookiecutter.project_version}}"
+
+[tool.poetry.extras]
+test = ["pytest"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11"
+
+[tool.poetry.dev-dependencies]
+black = "^20.8b1"
+isort = "^5.7.0"
+pylint = "2.11.1"
+pytest = "^5.2"
+taskipy = "^1.6.0"
+
+[tool.taskipy.tasks]
+black = "black pipeline"
+check = "task isort && task black && task pylint"
+isort = "isort pipeline"
+pylint = "pylint pipeline"
+
+[tool.pytest.ini_options]
+addopts = "--verbose --pylint --pylint-rcfile=pyproject.toml --cov={{cookiecutter.project_slug}} --cov-report html --mypy"
+filterwarnings = [
+  "error",
+  "ignore::UserWarning", # note the use of single quote below to denote "raw" strings in TOML
+  'ignore::DeprecationWarning',
+]
+
+[tool.pylint.master]
+good-names = "logger,e,i,j,n,m,f,_,xs,ys,df"
+ignore = "sphinx"
+
+[tool.pylint.messages_control]
+disable = "all"
+enable = """,
+    unused-import,
+    fixme,
+    useless-object-inheritance,
+    unused-variable,
+    unused-argument,
+    unexpected-keyword-arg,
+    string,
+    unreachable,
+    invalid-name,
+    logging-format-interpolation,
+    logging-fstring-interpolation,
+    unnecesary-pass,
+    """
+ignored-argument-names = "_.*|^ignored_|^unused_|args|kwargs"
+
+[black]
+extend-ignore = "E203"
+max-line-length = 120
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[[tool.poetry.source]]
+name = "avast-repo-local" # This name will be used in the configuration to retrieve the proper credentials
+url = "https://artifactory.ida.avast.com/artifactory/api/pypi/pypi-local/simple/" # URL used to download your packages from
+
+[[tool.poetry.source]]
+default = true 
+name = "avast-repo-remote" # This name will be used in the configuration to retrieve the proper credentials
+url = "https://artifactory.ida.avast.com/artifactory/api/pypi/pypi-remote/simple/" # URL used to download your packages from
