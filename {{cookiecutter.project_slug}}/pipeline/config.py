@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 # Env exported from wanna pipeline cli command
-PIPELINE_NAME_PREFIX = "WANNA_SKLEARN_SAMPLE"  # snake_cased pipeline name in wanna config
+PIPELINE_NAME_PREFIX = "{{ cookiecutter.project_slug }}"  # snake_cased pipeline name in wanna config
 
 PROJECT_ID = os.getenv(f"{PIPELINE_NAME_PREFIX}_PROJECT_ID")
 BUCKET = os.getenv(f"{PIPELINE_NAME_PREFIX}_BUCKET")

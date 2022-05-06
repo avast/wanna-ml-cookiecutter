@@ -5,34 +5,22 @@ from google_cloud_pipeline_components import aiplatform as aip_components
 from kfp.v2 import dsl
 from kfp.v2.dsl import component
 
-import wanna_simple.config as cfg
-from wanna_simple.components.data.get_data import get_data_op
-from wanna_simple.components.predictor import make_prediction_request
-from wanna_simple.components.trainer.eval_model import eval_model_op
-from wanna_simple.components.trainer.train_xgb_model import train_xgb_model_op
+import {{ cookiecutter.project_slug }}.config as cfg
+from {{ cookiecutter.project_slug }}.components.data.get_data import get_data_op
+from {{ cookiecutter.project_slug }}.components.predictor import make_prediction_request
+from {{ cookiecutter.project_slug }}.components.trainer.eval_model import eval_model_op
+from {{ cookiecutter.project_slug }}.components.trainer.train_xgb_model import train_xgb_model_op
 
 
 @component(
     base_image="python:3.9",
-    packages_to_install=["slack-webhook-cli"],
 )
-def slack_notification(slack_channel: str, status: str):
+def on_exit():
     import logging
-    import subprocess
 
     logging.getLogger().setLevel(logging.INFO)
 
-    # webhook = "fillme-from-gcp-secrets"
-    # icon = "https://a.slack-edge.com/production-standard-emoji-assets/13.0/apple-medium/274c.png"
-    # args = ["slack", "-w", webhook, "-c", slack_channel, f":white_check_mark: {status}"]
-    args = ["echo", "1"]
-    result = subprocess.run(args, capture_output=True)
-
-    if result.returncode > 0:
-        logging.error(result.stderr.decode())
-        exit(result.returncode)
-    else:
-        logging.info(result.stdout.decode())
+    logging.info("This Component will run on exit")
 
 
 @dsl.pipeline(
@@ -47,11 +35,8 @@ def wanna_sklearn_sample(eval_acc_threshold: float):
     # ===================================================================
     # collect datasets provided by sklearn
     exit_task = (
-        slack_notification(
-            slack_channel="#p-mlops-alerts",
-            status="Kubeflow pipeline: {{workflow.name}} has {{workflow.status}}!",
-        )
-        .set_display_name("Slack Notification")
+        on_exit()
+        .set_display_name("On Exit Dummy Task")
         .set_caching_options(False)
     )
 
