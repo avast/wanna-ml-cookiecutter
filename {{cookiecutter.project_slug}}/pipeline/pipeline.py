@@ -5,11 +5,11 @@ from google_cloud_pipeline_components import aiplatform as aip_components
 from kfp.v2 import dsl
 from kfp.v2.dsl import component
 
-import {{ cookiecutter.project_slug }}.config as cfg
-from {{ cookiecutter.project_slug }}.components.data.get_data import get_data_op
-from {{ cookiecutter.project_slug }}.components.predictor import make_prediction_request
-from {{ cookiecutter.project_slug }}.components.trainer.eval_model import eval_model_op
-from {{ cookiecutter.project_slug }}.components.trainer.train_xgb_model import train_xgb_model_op
+import config as cfg
+from components.data.get_data import get_data_op
+from components.predictor import make_prediction_request
+from components.trainer.eval_model import eval_model_op
+from components.trainer.train_xgb_model import train_xgb_model_op
 
 
 @component(

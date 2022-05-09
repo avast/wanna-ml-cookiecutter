@@ -1,9 +1,10 @@
 import json
 import os
 from datetime import datetime
+from caseconverter import snakecase
 
 # Env exported from wanna pipeline cli command
-PIPELINE_NAME_PREFIX = "{{ cookiecutter.project_slug }}"  # snake_cased pipeline name in wanna config
+PIPELINE_NAME_PREFIX = snakecase("{{ cookiecutter.project_slug }}-pipeline").upper()
 
 PROJECT_ID = os.getenv(f"{PIPELINE_NAME_PREFIX}_PROJECT_ID")
 BUCKET = os.getenv(f"{PIPELINE_NAME_PREFIX}_BUCKET")

@@ -12,18 +12,19 @@ gcp_profiles:
     service_account: {{ cookiecutter.gcp_service_account }}
 
 tensorboards:
-  - name: {{ cookiecutter.project_slug }}-pipeline-board
+  - name: {{ cookiecutter.project_slug }}-board
 
 docker:
   images:
     - build_type: local_build_image
       name: train
       context_dir: notebook/train
-      dockerfile: Dockerfile
+      dockerfile: notebook/train/Dockerfile
 
     - build_type: provided_image
       name: serve
       image_url: europe-docker.pkg.dev/vertex-ai/prediction/xgboost-cpu.1-4:latest
+  repository: {{ cookiecutter.gcp_artifact_registry_repository }}
 
 notebooks:
   - name: {{ cookiecutter.project_slug }}-notebook
@@ -36,7 +37,7 @@ notebooks:
     tensorboard_ref: {{ cookiecutter.project_slug }}-board
 
 pipelines:
-  - name: {{ cookiecutter.project_slug }}
+  - name: {{ cookiecutter.project_slug }}-pipeline
     schedule:
       cron: 2 * * * *
     bucket: gs://{{ cookiecutter.gcp_bucket }}

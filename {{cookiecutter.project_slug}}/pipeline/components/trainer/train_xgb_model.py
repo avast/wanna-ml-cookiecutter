@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
-import {{ cookiecutter.project_slug }}.config as cfg
+import config as cfg
 from kfp.v2.dsl import Dataset, Input, Model, Output, component
 
 @component(
