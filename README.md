@@ -16,7 +16,7 @@ extra-index-url = https://artifactory.ida.avast.com/artifactory/api/pypi/pypi-lo
 # Install 
 
 ```
-pip install wanna
+pip install wanna-ml
 ```
 
 # Launch to cutter
