@@ -16,7 +16,7 @@ wanna init
 ```
 or without wanna, manually
 ```
-cookiecutter https://git.int.avast.com/bds/wanna-ml-cookiecutter
+cookiecutter https://github.com/avast/wanna-ml-cookiecutter
 ```
 
 # Answer the following question, values will be used to in your wanna-ml config
