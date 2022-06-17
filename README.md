@@ -4,15 +4,6 @@ cookiecutter template for wanna-ml projects
 
 ## Get started
 
-Ensure Avasts' pypi repositories are enabled. 
-Add to `~/.pip/.pip.conf`
-```
-[global]
-index-url=https://artifactory.ida.avast.com/artifactory/api/pypi/pypi-remote/simple
-extra-index-url = https://artifactory.ida.avast.com/artifactory/api/pypi/pypi-local/simple
-```
-
-
 # Install 
 
 ```
