@@ -23,7 +23,6 @@ Assuming all terraform is done and deployed we can quickly bootstrap a wanna-ml 
 
 ### Launch the cutter
 ```bash
-
 cookiecutter https://github.com/avast/wanna-ml-cookiecutter.git
 
 Project name without wanna- prefix (project_name): genie-ai
@@ -38,8 +37,13 @@ gcp_network_name (europe-west1-net):
 gcp_subnetwork_name (europe-west1-subnet):
 gcp_service_account_name (sa-wanna-genie-ai):
 use_jupyter_notebooks [y/n] (y):
-
 ```
+
+Or you can use the [wanna init command](https://avast.github.io/wanna-ml/tutorial/pipeline/#initialize-wanna-project)
+```bash
+wanna init -t https://github.com/avast/wanna-ml-cookiecutter.git --output-dir wanna_awesome
+```
+which will create a folder `wanna_awesome` with the same content as the `cookiecutter` command above.
 
 You may notice that with few fields we can bootstrap a project, whilst leaving the others to default will do just fine.
 
